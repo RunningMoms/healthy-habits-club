@@ -25,7 +25,8 @@ body {
 }
 
 .offer-box {
-    margin-bottom: 11em;
+    position: fixed;
+    bottom: +6.5em;
     max-height: 70vh;
     min-width: 300px;
     overflow-y: auto;
