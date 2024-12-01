@@ -1,0 +1,129 @@
+
+body {
+    background-image: url('/media/_2024-12_squats.webp');
+    background-size: cover;
+    background-position: 65% 50%;
+    height: 100vh;
+    margin: 0;
+    padding-bottom: 11em;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+.modal-style {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    max-width: 750px;
+}
+
+.modal-style input {
+    background-color: white !important;
+    font-weight: bold;
+}
+
+.offer-box {
+    max-height: 45vh;
+    overflow-y: auto;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.offer-box.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#actionButton {
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 300px;
+}
+
+ul.stars {
+    list-style: none; /* Remove default bullets */
+    padding-left: 0; /* Optional: Remove left padding */
+}
+
+ul.stars li::before{
+    content: '⭐ '; /* Add star emoji before each list item */
+    font-size: 1.2em; /* Optional: Adjust emoji size */
+}
+ul.stars.aligned li{
+    display: inline-block;
+}
+
+@media (min-width: 992px) {
+    ul.stars.aligned::after{
+        content: '⭐ '; /* Add star emoji before each list item */
+        font-size: 1.2em; /* Optional: Adjust emoji size */
+    }
+}
+
+.fine-print {
+    font-size: 0.8rem; /* Adjust as needed */
+    color: gray; /* Optional: make it a lighter color for de-emphasis */
+}
+
+/* Custom styles for Stripe Elements */
+.StripeElement {
+    box-sizing: border-box;
+    padding: 0.75rem 0.75rem;
+    border: none;
+    border-bottom: 1px solid #ced4da;
+    background-color: transparent;
+    margin-bottom: 0;
+}
+
+.StripeElement--focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: none;
+}
+
+/* Adjust the label for the card element */
+#card-element + label {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    pointer-events: none;
+    transition: all 0.1s ease-in-out;
+}
+
+#card-element.StripeElement--focus + label,
+#card-element.not-empty + label {
+    top: -0.5rem;
+    left: 0.75rem;
+    font-size: 0.85rem;
+    opacity: 1;
+}
+
+/* Ensure the card element has a consistent height */
+#card-element {
+    height: calc(3.5rem + 2px);
+    border: 1px solid #ced4da;
+    background-color: #ffffff;
+}
+
+/* Styles for the success modal */
+.success-box {
+    max-height: 45vh;
+    overflow-y: auto;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    display: none; /* Initially hidden */
+}
+
+.success-box.show {
+    opacity: 1;
+    transform: translateY(0);
+}

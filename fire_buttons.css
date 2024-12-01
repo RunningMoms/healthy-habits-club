@@ -46,11 +46,6 @@
     opacity: 1;
 }
 
-/* Specific Button Variants */
-.btn-primary {
-    background: linear-gradient(90deg, #ff8a00, #e52e71);
-}
-
 .btn-primary.cta-single {
     width: auto; /* Let the button size itself */
     max-width: 400px;
@@ -68,5 +63,25 @@
     flex-wrap: wrap;
     gap: 15px;
     margin-top: 20px;
+}
+
+/* Specific Button Variants */
+.btn-primary {
+    background: linear-gradient(90deg, #ff8a00, #e52e71);
+}
+
+/* Call Button */
+.btn-payment {
+    background: linear-gradient(90deg, #36D1DC, #5B86E5);
+}
+
+/* WhatsApp Button */
+.btn-success {
+    background: linear-gradient(90deg, #25D366, #128C7E);
+}
+
+/* Email Button */
+.btn-danger {
+    background: linear-gradient(90deg, #FF512F, #DD2476);
 }
 

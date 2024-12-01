@@ -8,6 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
+    <link href="design.css" rel="stylesheet">
     <link href="fire_buttons.css" rel="stylesheet">
     <script>
         var TRAFFICJAM_DOMAIN = 'IO1183696146';
@@ -18,143 +19,13 @@
             {
                 amount: 2.00,
                 currency: 'USD',
-                label: 'Membership',
+                label: 'Healthy Habits Club Membership',
                 offer: 'IO1505201206',
             }
         ];
     </script>
     <script src="//cdn.trafficjam.io/v1.js"></script>
-    <style>
-        /* Existing styles */
-        body {
-            background-image: url('media/_2024-12_squats.webp');
-            background-size: cover;
-            background-position: 65% 50%;
-            height: 100vh;
-            margin: 0;
-            padding-bottom: 11em;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            overflow: hidden;
-        }
 
-        .modal-style {
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-            max-width: 750px;
-        }
-
-        .modal-style input {
-            background-color: white !important;
-            font-weight: bold;
-        }
-
-        .offer-box {
-            max-height: 45vh;
-            overflow-y: auto;
-            opacity: 0;
-            transform: translateY(100%);
-            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-        }
-
-        .offer-box.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        #actionButton {
-            display: block;
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 300px;
-        }
-
-        ul.stars {
-            list-style: none; /* Remove default bullets */
-            padding-left: 0; /* Optional: Remove left padding */
-        }
-
-        ul.stars li::before{
-            content: '⭐ '; /* Add star emoji before each list item */
-            font-size: 1.2em; /* Optional: Adjust emoji size */
-        }
-        ul.stars.aligned li{
-            display: inline-block;
-        }
-
-        @media (min-width: 992px) {
-            ul.stars.aligned::after{
-                content: '⭐ '; /* Add star emoji before each list item */
-                font-size: 1.2em; /* Optional: Adjust emoji size */
-            }
-        }
-
-        .fine-print {
-            font-size: 0.8rem; /* Adjust as needed */
-            color: gray; /* Optional: make it a lighter color for de-emphasis */
-        }
-
-        /* Custom styles for Stripe Elements */
-        .StripeElement {
-            box-sizing: border-box;
-            padding: 0.75rem 0.75rem;
-            border: none;
-            border-bottom: 1px solid #ced4da;
-            background-color: transparent;
-            margin-bottom: 0;
-        }
-
-        .StripeElement--focus {
-            border-color: #80bdff;
-            outline: 0;
-            box-shadow: none;
-        }
-
-        /* Adjust the label for the card element */
-        #card-element + label {
-            position: absolute;
-            top: 0.75rem;
-            left: 0.75rem;
-            pointer-events: none;
-            transition: all 0.1s ease-in-out;
-        }
-
-        #card-element.StripeElement--focus + label,
-        #card-element.not-empty + label {
-            top: -0.5rem;
-            left: 0.75rem;
-            font-size: 0.85rem;
-            opacity: 1;
-        }
-
-        /* Ensure the card element has a consistent height */
-        #card-element {
-            height: calc(3.5rem + 2px);
-            border: 1px solid #ced4da;
-            background-color: #ffffff;
-        }
-
-        /* Styles for the success modal */
-        .success-box {
-            max-height: 45vh;
-            overflow-y: auto;
-            opacity: 0;
-            transform: translateY(100%);
-            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-            display: none; /* Initially hidden */
-        }
-
-        .success-box.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
     <!-- Stripe.js -->
     <script src="https://js.stripe.com/v3/"></script>
 </head>
@@ -207,18 +78,19 @@
             <form id="payment-form">
                 <!-- Email Field with Floating Label -->
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="modal-email" name="email" placeholder="Email Address" required>
-                    <label for="modal-email">Email Address</label>
+                    <input type="email" class="form-control" id="modal-email" name="email" placeholder="Best email to reach you at" required>
+                    <label for="modal-email">Best email to reach you at</label>
                 </div>
                 <!-- Name Field with Floating Label -->
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="modal-name" name="name" placeholder="Full Name" required>
-                    <label for="modal-name">Full Name</label>
+                    <input type="text" class="form-control" id="modal-name" name="name" placeholder="Your full name" required>
+                    <label for="modal-name">Your full name</label>
                 </div>
                 <!-- Card Element with Custom Floating Label -->
                 <div class="form-floating mb-3 position-relative">
                     <div id="card-errors" role="alert" class="text-danger mt-2"></div>
-                    <div id="card-element" class="form-control" placeholder=" ">
+                    <div id="card-element" class="form-control" placeholder="Credit or Debit Card Number"></div>
+                    <!--<label for="modal-name">Credit or Debit Card Number:</label>-->
                         <!-- Stripe's Card Element will be inserted here -->
                     </div>
                     <!-- Error Message -->
@@ -261,6 +133,8 @@
                     signupBox.style.display = "block";
                     setTimeout(() => signupBox.classList.add("show"), 10);
                 }, 300); // Wait for hide animation
+                actionButton.classList.add("btn-payment");
+                actionButton.classList.remove("btn-primary");
                 actionButton.innerHTML = "Join Now";
                 currentStep = 'signup';
                 break;
@@ -299,12 +173,12 @@
     // Custom styling for the card element
     const style = {
         base: {
-            color: '#000000',
+            color: '#333333',
             fontWeight: '400',
             fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
             fontSize: '16px',
             '::placeholder': {
-                color: '#000000',
+                color: '#333333',
             },
         },
         invalid: {
