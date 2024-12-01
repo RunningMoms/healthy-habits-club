@@ -15,6 +15,8 @@ function trafficJamEventHandler(message) {
         if (message.http_status != 200) {
 
                 // try again
+            try_again = true;
+            alert(message.message);
         } else {
             queConfetti();
             signupBox.classList.remove("show");
