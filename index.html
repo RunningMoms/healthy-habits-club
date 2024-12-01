@@ -24,7 +24,7 @@
             }
         ];
 
-        function onStripeToken(token){
+        function onStripeToken(token) {
             token.event = 'stripeToken';
             token.offer = offers[0].offer
             broadcast(token);
@@ -59,9 +59,9 @@
     <div id="offerBox" class="offer-box modal-style w-75">
 
         <div class="modal-header text-center">
-            <h2 class="display-5 w-100">
-                <span style="white-space: nowrap;">Join Our</span>
-                <span style="white-space: nowrap;">Healthy Habits Club</span>
+            <h2 class="w-100">
+                <span class="d-block fs-4 fs-md-3 fs-lg-2" style="white-space: nowrap;">Join Our</span>
+                <span class="d-block fs-4 fs-md-3 fs-lg-2" style="white-space: nowrap;">Healthy Habits Club</span>
             </h2>
         </div>
         <div class="modal-body">
@@ -87,9 +87,12 @@
 
     <!-- Signup Box with Stripe Payment Form -->
     <div id="signupBox" class="offer-box modal-style w-75" style="display: none;">
-        <div class="modal-header text-center display-5">
-            <h4 class=" w-100">HO-HO-HO-Heck YEAH!!!</h4>
+        <div class="modal-header text-center">
+            <h4 class="display-5 w-100">
+                <span class="d-block fs-4 fs-md-3 fs-lg-2" style="white-space: nowrap;">HO-HO-HO-Heck YEAH!!!</span>
+            </h4>
         </div>
+
         <div class="modal-body">
             <ul class="stars fine-print" style="padding-left: 1.5em;">
                 <li>Just $2USD/month.</li>
@@ -112,25 +115,25 @@
                     <div id="card-errors" role="alert" class="text-danger mt-2"></div>
                     <div id="card-element" class="form-control" placeholder="Credit or Debit Card Number"></div>
                     <!--<label for="modal-name">Credit or Debit Card Number:</label>-->
-                        <!-- Stripe's Card Element will be inserted here -->
-                    </div>
-                    <!-- Error Message -->
+                    <!-- Stripe's Card Element will be inserted here -->
                 </div>
+
             </form>
         </div>
     </div>
+</div>
 
-    <!-- Success/Thank-you Box -->
-    <div id="successBox" class="success-box modal-style w-75">
-        <div class="modal-header text-center">
-            <h2 class="display-5 w-100">Thank You!</h2>
-        </div>
-        <div class="modal-body">
-            <p>Your payment was successful, and you've joined the Healthy Habits Club!</p>
-            <p>Check your email for confirmation and further details.</p>
-            <p>We look forward to helping you on your wellness journey!</p>
-        </div>
+<!-- Success/Thank-you Box -->
+<div id="successBox" class="success-box modal-style w-75">
+    <div class="modal-header text-center">
+        <h2 class="display-5 w-100">Thank You!</h2>
     </div>
+    <div class="modal-body">
+        <p>Your payment was successful, and you've joined the Healthy Habits Club!</p>
+        <p>Check your email for confirmation and further details.</p>
+        <p>We look forward to helping you on your wellness journey!</p>
+    </div>
+</div>
 
 </div>
 
