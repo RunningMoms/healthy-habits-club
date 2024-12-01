@@ -5,7 +5,6 @@ body {
     background-position: 65% 50%;
     height: 100vh;
     margin: 0;
-    padding-bottom: 11em;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -26,7 +25,9 @@ body {
 }
 
 .offer-box {
+    margin-bottom: 11em;
     max-height: 70vh;
+    min-width: 300px;
     overflow-y: auto;
     opacity: 0;
     transform: translateY(100%);
