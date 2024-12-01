@@ -1,5 +1,3 @@
-var focus_offer_key;
-var focus_offer_amount;
 var try_again;
 
 function trafficJamEventHandler(message) {
@@ -16,61 +14,18 @@ function trafficJamEventHandler(message) {
     if (message.event == "purchaseResponse") {
         if (message.http_status != 200) {
 
-            // Reformat the errors into HTML
-            let formattedErrors = `<h2>${message.message}</h2><ul>`;
-            for (const errorField in message.errors) {
-                const errorMessages = message.errors[errorField];
-                errorMessages.forEach(errorMessage => {
-                    formattedErrors += `<li style="text-align: left;"><span style="color:#dd3333;">${errorField}:</span> ${errorMessage}</li>`;
-                });
-            }
-            formattedErrors += '</ul>';
-
-            if (try_again != undefined) {
-
-                Swal.fire({
-                    title: 'No worries. Try one more time,<br/>then just contact me.',
-                    html: formattedErrors,
-                    icon: 'error',
-                    confirmButtonText: 'Try Again',
-                    showCancelButton: true,
-                    cancelButtonText: 'Contact Carey',
-                    allowOutsideClick: false,
-
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#999999',
-
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        showStripe(...Object.values(try_again));
-                        window.try_again = undefined;
-                    } else {
-                        window.location.href = 'mailto:carey@runningmoms.com';
-                    }
-                });
-            } else {
-                Swal.fire({
-                    title: 'No worries. Just contact me.<br/>I\'ll get you setup!',
-                    html: formattedErrors,
-                    icon: 'error',
-                    confirmButtonText: 'Contact Carey',
-                    allowOutsideClick: false,
-                    confirmButtonColor: '#3085d6',
-                }).then((result) => {
-                    window.location.href = 'mailto:carey@runningmoms.com';
-                    Swal.close();
-                });
-            }
+                // try again
         } else {
             queConfetti();
-            let el = Swal.fire({
-                title: 'Success!',
-                text: 'Please check your email for further details.',
-                icon: 'success',
-                confirmButtonText: 'Close',
-                confirmButtonColor: '#3085d6',
-            });
-
+            signupBox.classList.remove("show");
+            setTimeout(() => {
+                signupBox.style.display = "none";
+                successBox.style.display = "block";
+                setTimeout(() => successBox.classList.add("show"), 10);
+                queConfetti();
+            }, 300); // Wait for hide animation
+            actionButton.innerHTML = "Continue";
+            currentStep = 'success';
         }
     }
 }

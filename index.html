@@ -10,9 +10,14 @@
     <!-- Custom CSS -->
     <link href="design.css" rel="stylesheet">
     <link href="fire_buttons.css" rel="stylesheet">
+    <script src="//cdn.trafficjam.io/v1.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+
     <script>
         var TRAFFICJAM_DOMAIN = 'IO1183696146';
+        //var TRAFFICJAM_DOMAIN ='IO1183696146';//test
         var STRIPE_KEY = 'pk_live_Hgrz280w9D3yOOPfipK2PaHr';
+        //var STRIPE_KEY = 'pk_test_SUBTHFPtvx5TceT6AuJdXoxb';
         var STRIPE_TITLE = 'HealthyHabitsClub';
 
         var offers = [
@@ -20,14 +25,16 @@
                 amount: 2.00,
                 currency: 'USD',
                 label: 'Healthy Habits Club Membership',
-                offer: 'IO1505201206',
+                offer: 'IO1505201206'
             }
         ];
-    </script>
-    <script src="//cdn.trafficjam.io/v1.js"></script>
 
-    <!-- Stripe.js -->
-    <script src="https://js.stripe.com/v3/"></script>
+        function onStripeToken(token){
+            token.event = 'stripeToken';
+            token.offer = offers[0].offer
+            broadcast(token);
+        }
+    </script>
 
     <script async defer src="/bundles/confetti.js"></script>
     <script async defer src="/bundles/party.min.js"></script>
@@ -184,7 +191,7 @@
 <!-- Stripe Payment Script -->
 <script>
     // Replace with your own publishable API key from Stripe Dashboard
-    const stripe = Stripe('pk_test_SUBTHFPtvx5TceT6AuJdXoxb'); // <-- Replace with your publishable key
+    const stripe = Stripe(STRIPE_KEY); // <-- Replace with your publishable key
 
     // Create an instance of Elements
     const elements = stripe.elements();
@@ -263,13 +270,20 @@
                 actionButton.innerHTML = "Join Now";
             } else {
                 // Send the token and form data to your server
-                stripeTokenHandler(result.token);
+                //stripeTokenHandler(result.token);
+
+                var token = {
+                    ...result.token,
+                    name: nameInput.value,
+                    email: emailInput.value,
+                }
+                onStripeToken(token);
             }
         });
     }
 
     // Submit the token and additional data to your server
-    function stripeTokenHandler(token) {
+   /* function stripeTokenHandler(token) {
         const form = document.getElementById('payment-form');
 
         // Create hidden input elements for token and other data
@@ -312,6 +326,7 @@
                         signupBox.style.display = "none";
                         successBox.style.display = "block";
                         setTimeout(() => successBox.classList.add("show"), 10);
+                        queConfetti();
                     }, 300); // Wait for hide animation
                     actionButton.innerHTML = "Continue";
                     currentStep = 'success';
@@ -328,7 +343,7 @@
 
         // Send the form data
         xhr.send(formData);
-    }
+    }*/
 </script>
 
 <!-- Bootstrap JS Bundle -->
