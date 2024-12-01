@@ -1,46 +1,6 @@
 var focus_offer_key;
 var focus_offer_amount;
 var try_again;
-var fb_tracking_amount = 0;
-
-var stripeHandler = StripeCheckout.configure({
-    key: STRIPE_KEY,
-    image: 'media/Stripe-128x128.png',
-    locale: 'auto',
-
-    opened: function () {
-    },
-    closed: function () {
-    },
-
-    token: function (token) {
-        token.event = 'stripeToken';
-        token.offer = focus_offer_key;
-        broadcast(token);
-    }
-});
-
-function showStripe(amount, currency, description, offer_key) {
-    fb_tracking_amount = parseInt(amount);
-    fbq('track', 'InitiateCheckout', {currency: "USD", value: fb_tracking_amount});
-
-    focus_offer_amount = parseInt(amount) / 100;
-    amount *= 100;
-    focus_offer_key = offer_key;
-
-
-    stripeHandler.open({
-        name: STRIPE_TITLE,
-        amount,
-        currency,
-        description,
-
-        billingAddress: true,
-        shippingAddress: false,
-        allowRememberMe: false,
-    });
-}
-
 
 function trafficJamEventHandler(message) {
     try {
@@ -111,46 +71,12 @@ function trafficJamEventHandler(message) {
                 confirmButtonColor: '#3085d6',
             });
 
-            if (fb_tracking_amount > 0) {
-                fbq('track', 'Purchase', {currency: "USD", value: fb_tracking_amount});
-                fb_tracking_amount = 0;
-            }
         }
     }
 }
 
 bindEvent(window, "message", trafficJamEventHandler);
-document.addEventListener("DOMContentLoaded", function () {
 
-    function deferImgs() {
-        Array
-            .from(document.querySelectorAll("img[data-src-defer]"))
-            .forEach((element) => {
-                element.setAttribute("src", element.dataset.srcDefer);
-            });
-    }
-    window.addEventListener("load", deferImgs());
-
-    // Create an intersection observer
-    let observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            // Check if the target div is in view
-            if (entry.isIntersecting) {
-                // Fire the Facebook tracking
-                // for(var i = 0; i < offers.length; i++) {
-                //     fbq('track', 'ViewContent', {content_category: "pricing option", value: offers[i].amount, currency: "USD"});
-                // }
-                fbq('track', 'ViewContent', {content_category: "pricing options"});
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 }); // Adjust threshold as needed
-
-// Target the element to observe
-    let target = document.getElementById('pricing-options');
-    observer.observe(target);
-
-});
 
 function queConfetti() {
     var canvas = document.getElementById('confetti-canvas');

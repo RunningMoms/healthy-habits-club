@@ -28,8 +28,26 @@
 
     <!-- Stripe.js -->
     <script src="https://js.stripe.com/v3/"></script>
+
+    <script async defer src="/bundles/confetti.js"></script>
+    <script async defer src="/bundles/party.min.js"></script>
+    <script src="/custom.js"></script>
+
+    <style>
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999999;
+        }
+    </style>
+
+
 </head>
 <body>
+<canvas id="confetti-canvas" style="display: none;"></canvas>
 <div class="container d-flex justify-content-end">
 
     <button id="actionButton" class="btn btn-primary" onclick="actionButtonClick()">Loading...</button>
