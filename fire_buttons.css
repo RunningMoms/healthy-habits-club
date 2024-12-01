@@ -1,0 +1,72 @@
+/* Base Button Styles */
+.btn {
+    /*display: inline-flex;*/
+    align-items: center;
+    justify-content: center;
+    padding: 15px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    will-change: transform; /* Optimize hover animation */
+}
+
+/* Hover Effect for Buttons */
+.btn:hover {
+    /*transform: translateY(-5px);*/
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Icon Styling Inside Buttons */
+.btn i {
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+/* Background Animation on Hover */
+.btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 20%, transparent 20%);
+    background-size: 10px 10px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.btn:hover::before {
+    opacity: 1;
+}
+
+/* Specific Button Variants */
+.btn-primary {
+    background: linear-gradient(90deg, #ff8a00, #e52e71);
+}
+
+.btn-primary.cta-single {
+    width: auto; /* Let the button size itself */
+    max-width: 400px;
+    padding: 20px 30px;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+/* Other Button Variants (Unchanged) */
+
+/* Button Group Styling */
+.button-group {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+
