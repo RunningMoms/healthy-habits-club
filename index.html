@@ -10,14 +10,14 @@
     <!-- Custom CSS -->
     <link href="design.css" rel="stylesheet">
     <link href="fire_buttons.css" rel="stylesheet">
-    <script src="//cdn.trafficjam.test/v1.js"></script>
+    <script src="//cdn.trafficjam.io/v1.js"></script>
     <script src="https://js.stripe.com/v3/"></script>
 
     <script>
-        //var TRAFFICJAM_DOMAIN = 'IO1183696146';
-        var TRAFFICJAM_DOMAIN ='IO1183696146';//test
-        //var STRIPE_KEY = 'pk_live_Hgrz280w9D3yOOPfipK2PaHr';
-        var STRIPE_KEY = 'pk_test_SUBTHFPtvx5TceT6AuJdXoxb';
+        var TRAFFICJAM_DOMAIN = 'IO1183696146';
+        //var TRAFFICJAM_DOMAIN ='IO1183696146';//test
+        var STRIPE_KEY = 'pk_live_Hgrz280w9D3yOOPfipK2PaHr';
+        //var STRIPE_KEY = 'pk_test_SUBTHFPtvx5TceT6AuJdXoxb';
         var STRIPE_TITLE = 'HealthyHabitsClub';
 
         var offers = [
@@ -25,8 +25,8 @@
                 amount: 2.00,
                 currency: 'USD',
                 label: 'Healthy Habits Club Membership',
-                offer: 'IO1392645434'
-            }//'IO1505201206'
+                offer: 'IO1505201206'
+            }
         ];
 
         function onStripeToken(token){
