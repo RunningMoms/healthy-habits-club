@@ -5,8 +5,232 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1, user-scalable=no">
     <title>Healthy Habits Club</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="design.css" rel="stylesheet">
-    <link href="fire_buttons.css" rel="stylesheet">
+    <style>
+
+
+        body {
+            background-image: url('media/Smoothie.jpeg');
+            background-size: cover;
+            background-position: 65% 50%;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+
+        .modal-style {
+            background-color: rgba(255, 255, 255, 0.9);
+            /*border-radius: 15px;*/
+            padding: 20px;
+            /*box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);*/
+            max-width: 750px;
+        }
+
+        .modal-style input {
+            background-color: white !important;
+            font-weight: bold;
+        }
+
+        .offer-box {
+            position: fixed;
+            bottom: +6.5em;
+            max-height: 70vh;
+            min-width: 300px;
+            overflow-y: auto;
+            opacity: 0;
+            transform: translateY(100%);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
+
+        .offer-box.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #actionButton {
+            display: block;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 300px;
+        }
+
+        ul.stars {
+            list-style: none; /* Remove default bullets */
+            padding-left: 0; /* Optional: Remove left padding */
+        }
+
+        ul.stars li::before{
+            content: '⭐ '; /* Add star emoji before each list item */
+            font-size: 1.2em; /* Optional: Adjust emoji size */
+        }
+        ul.stars.aligned li{
+            display: inline-block;
+        }
+
+        @media (min-width: 992px) {
+            ul.stars.aligned::after{
+                content: '⭐ '; /* Add star emoji before each list item */
+                font-size: 1.2em; /* Optional: Adjust emoji size */
+            }
+        }
+
+        .fine-print {
+            font-size: 0.8rem; /* Adjust as needed */
+            color: gray; /* Optional: make it a lighter color for de-emphasis */
+        }
+
+        /* Custom styles for Stripe Elements */
+        .StripeElement {
+            box-sizing: border-box;
+            padding: 0.75rem 0.75rem;
+            border: none;
+            border-bottom: 1px solid #ced4da;
+            background-color: transparent;
+            margin-bottom: 0;
+        }
+
+        .StripeElement--focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: none;
+        }
+
+        /* Adjust the label for the card element */
+        #card-element + label {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            pointer-events: none;
+            transition: all 0.1s ease-in-out;
+        }
+
+        #card-element.StripeElement--focus + label,
+        #card-element.not-empty + label {
+            top: -0.5rem;
+            left: 0.75rem;
+            font-size: 0.85rem;
+            opacity: 1;
+        }
+
+        /* Ensure the card element has a consistent height */
+        #card-element {
+            height: calc(3.5rem + 2px);
+            border: 1px solid #ced4da;
+            background-color: #ffffff;
+        }
+
+        /* Styles for the success modal */
+        .success-box {
+            max-height: 45vh;
+            overflow-y: auto;
+            opacity: 0;
+            transform: translateY(100%);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+            display: none; /* Initially hidden */
+        }
+
+        .success-box.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+    <style>
+
+        /* Base Button Styles */
+        .btn {
+            /*display: inline-flex;*/
+            align-items: center;
+            justify-content: center;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            will-change: transform; /* Optimize hover animation */
+        }
+
+        /* Hover Effect for Buttons */
+        .btn:hover {
+            /*transform: translateY(-5px);*/
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Icon Styling Inside Buttons */
+        .btn i {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+
+        /* Background Animation on Hover */
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 20%, transparent 20%);
+            background-size: 10px 10px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+        .btn-primary.cta-single {
+            width: auto; /* Let the button size itself */
+            max-width: 400px;
+            padding: 20px 30px;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        /* Other Button Variants (Unchanged) */
+
+        /* Button Group Styling */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* Specific Button Variants */
+        .btn-primary {
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+        }
+
+        /* Call Button */
+        .btn-payment {
+            background: linear-gradient(90deg, #36D1DC, #5B86E5);
+        }
+
+        /* WhatsApp Button */
+        .btn-success {
+            background: linear-gradient(90deg, #25D366, #128C7E);
+        }
+
+        /* Email Button */
+        .btn-danger {
+            background: linear-gradient(90deg, #FF512F, #DD2476);
+        }
+
+
+    </style>
     <script src="//cdn.trafficjam.io/v1.js"></script>
     <script src="https://js.stripe.com/v3/"></script>
 
@@ -34,7 +258,85 @@
     <script async defer src="/bundles/confetti.js"></script>
     <script async defer src="/bundles/party.min.js"></script>
 
-    <script src="/custom.js"></script>
+    <script>
+        var try_again;
+
+        function trafficJamEventHandler(message) {
+            try {
+                message = JSON.parse(message.data);
+            } catch (e) {
+                return;
+            }
+
+            if (typeof message.package == 'undefined' || message.package != 'trafficjam' || typeof message.message == 'undefined') {
+                return;
+            }
+
+            if (message.event == "purchaseResponse") {
+                if (message.http_status != 200) {
+
+                    // try again
+                    try_again = true;
+                    alert(message.message);
+                } else {
+                    queConfetti();
+                    signupBox.classList.remove("show");
+                    setTimeout(() => {
+                        signupBox.style.display = "none";
+                        successBox.style.display = "block";
+                        setTimeout(() => successBox.classList.add("show"), 10);
+                        queConfetti();
+                    }, 300); // Wait for hide animation
+                    actionButton.innerHTML = "Continue";
+                    currentStep = 'success';
+                }
+            }
+        }
+
+        bindEvent(window, "message", trafficJamEventHandler);
+
+
+        function queConfetti() {
+            var canvas = document.getElementById('confetti-canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            canvas.style.display = 'block';
+            startConfetti();
+            var interval = setInterval(function () {
+                party.sparkles(canvas);
+                party.sparkles(canvas);
+                party.sparkles(canvas);
+                party.sparkles(canvas);
+            }.bind(canvas), 500);
+
+            setTimeout(function () {
+                cleanupConfetti();
+                clearInterval(interval)
+            }.bind(interval), 4000);
+
+        }
+
+        function cleanupConfetti() {
+            var canvas = document.getElementById('confetti-canvas');
+            var opacity = 1;
+            var fadeInterval = setInterval(function () {
+                if (opacity > 0) {
+                    opacity -= 0.05; // Adjust the fading speed here
+                    canvas.style.opacity = opacity;
+                } else {
+                    clearInterval(fadeInterval);
+                    canvas.style.display = 'none';
+                }
+            }, 50); // Adjust the fading interval here
+
+            // Set display to 'none' after fade out is complete
+            setTimeout(function () {
+                canvas.style.display = 'none';
+                canvas.style.opacity = 1;
+            }, 50 * 20); // Adjust the delay here (50ms * 20 = 1000ms = 1 second)
+        }
+
+    </script>
 
     <style>
         #confetti-canvas {
@@ -51,12 +353,12 @@
 </head>
 <body>
 <canvas id="confetti-canvas" style="display: none;"></canvas>
-<div class="container d-flex justify-content-end">
+<div class="container d-flex justify-content-center">
 
     <button id="actionButton" class="btn btn-primary" onclick="actionButtonClick()">Loading...</button>
 
     <!-- Offer Box -->
-    <div id="offerBox" class="offer-box modal-style w-75">
+    <div id="offerBox" class="offer-box modal-style">
 
         <div class="modal-header text-center">
             <h2 class="w-100">
@@ -74,22 +376,41 @@
             </ul>
 
             <hr/>
-            <h3><strong>December Challenges: Festive, Fun, and Healthy! 🎄</strong></h3>
+            <!--<h3><strong>December Challenges: Festive, Fun, and Healthy! 🎄</strong></h3>
 
             <p>🎄 <strong>Yuletide Yoga</strong>: Gentle stretches to destress this season.<br/>
                 🎅 <strong>Santa Squats</strong>: A quick lower-body strength boost.<br/>
                 🎶 <strong>Jingle Bell Jumps</strong>: Fun cardio bursts to energize your day.<br/>
                 🎉 <strong>Christmas Crunches</strong>: Core-strengthening fun to stay active.</p>
 
-            <p>PLUS, our <strong>Holiday Recipe Guide</strong> to make festive eating simple and guilt-free!</p>
+            <p>PLUS, our <strong>Holiday Recipe Guide</strong> to make festive eating simple and guilt-free!</p>-->
+
+            <h3><strong>January Healthy Habit Challenges</strong></h3>
+
+            <p>
+                <strong>Week 1: Hydration Reset (past)</strong>: Rehydrate and refresh by drinking at least 2L of water daily.
+            </p>
+
+            <p>
+                <strong>Week 2: Mindful Eating</strong>: Slow down, savor meals, and reset your eating habits.
+            </p>
+
+            <p>
+                <strong>Week 3: Step It Up</strong>: Focus on daily movement with a goal of 7,000–10,000 steps.
+            </p>
+
+            <p>
+                <strong>Week 4: Positive Self-Talk</strong>
+            </p>
+
         </div>
     </div>
 
     <!-- Signup Box with Stripe Payment Form -->
-    <div id="signupBox" class="offer-box modal-style w-75" style="display: none;">
+    <div id="signupBox" class="offer-box modal-style" style="display: none;">
         <div class="modal-header text-center">
             <h4 class="display-5 w-100">
-                <span class="d-block fs-4 fs-md-3 fs-lg-2" style="white-space: nowrap;">HO-HO-HO-Heck YEAH!!!</span>
+                <span class="d-block fs-4 fs-md-3 fs-lg-2" style="white-space: nowrap;">JOIN!!</span>
             </h4>
         </div>
 
@@ -124,7 +445,7 @@
 </div>
 
 <!-- Success/Thank-you Box -->
-<div id="successBox" class="success-box modal-style w-75">
+<div id="successBox" class="success-box modal-style">
     <div class="modal-header text-center">
         <h2 class="display-5 w-100">Thank You!</h2>
     </div>
@@ -178,7 +499,7 @@
 
     window.onload = function () {
         setTimeout(function () {
-            actionButton.innerHTML = "HO-HO-HO-Heck YEAH!!!";
+            actionButton.innerHTML = "JOIN";
             offerBox.classList.add("show");
         }, 250)
     };
